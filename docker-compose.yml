@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  app1:
+    build: ./app1
+    ports:
+      - "3000:3000"
+    volumes:
+      - app1-data:/usr/src/app/data
+    networks:
+      - app-network
+    depends_on:
+      - app2
+
+  app2:
+    build: ./app2
+    ports:
+      - "4000:4000"
+    volumes:
+      - app2-data:/usr/src/app/data
+    networks:
+      - app-network
+
+volumes:
+  app1-data:
+  app2-data:
+
+networks:
+  app-network:
+    driver: bridge
